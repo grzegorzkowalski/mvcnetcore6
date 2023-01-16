@@ -11,18 +11,18 @@ Zadanie jest podzielone na 4 sekcje: Konfiguracja, Rejestracja, Logowanie, Dost�
 
 #### Zadanie 1.1
 
-1. W głównym layout strony dodaj partial view zawierajacy linki  z tekstem `Logowanie` i `Rejestacja`, który będzie kierował na odpowiednie widoki Razor Pages.
+1. W głównym layout strony dodaj partial view zawierajacy linki z tekstem `Logowanie` i `Rejestacja`, który będzie kierował na odpowiednie widoki Razor Pages.
 1. Dodaj obsługę Razor Pages w pliku `Program.cs`.
 1. Ustaw options.SignIn.RequireConfirmedAccount = false. Dzięki temu na razie nie będizemy musieli potwierdzać adresu email.
 1. Przetestuj działanie rejestracji i logowania.
 
 Dla chętnych:
-1. Utwórz kontroler o nazwie `Account`.
+1. Utwórz kontroler o nazwie `MVCAccount`.
 1. Dodaj akcje i widoki rejestracji i logowania. 
 1. Zarejestruj obsługę niezbednych klas.
 1. Dodaj obsługę rejestracji i logowania.
 
-Dla chętnych:
+
 ## Rejestracja
 
 Dla chętnych:
@@ -33,12 +33,12 @@ Dla chętnych:
     1. `Email` typu `string` na email użytkownika.
     1. `Password` oraz `RepeatPassword` typu `string` na hasło użytkownika.
 1. Wszystkie właściwości powinny być wymagane. Dodatkowo wartość właściwości `Password` powinna być identyczna jak wartość właściwości `RepeatPassword`.
-1. Utwórz metodę `Register` w kontrolerze `Account`, metoda powinna:
+1. Utwórz metodę `Register` w kontrolerze `MVCAccount`, metoda powinna:
     1. Przyjmować tylko żądania `get`.
     1. Zwracać widok z formularzem utworzonym na podstawie modelu `RegisterViewModel`.
     1. Formularz powinien być typu `post` i powinien być wysyłany na akcję `Register` typu `post`.
     1. W widoku wyświetl błędy walidacji.
-1. Utwórz metodę `Register` w kontrolerze `Account` z parametrem typu `RegisterViewModel`. Metoda powinna:
+1. Utwórz metodę `Register` w kontrolerze `MVCAccount` z parametrem typu `RegisterViewModel`. Metoda powinna:
     1. Przyjmować tylko żądania `post`.
     1. Sprawdzać walidację modelu.
     1. Rejestrować użytkownika przy pomocy usługi `SignInManager`.
@@ -55,12 +55,12 @@ Dla chętnych:
     1. `Login` typu `string` na login użytkownika.
     1. `Password` typu `string` na hasło użytkownika.
 1. Wszystkie właściwości powinny być wymagane.
-1. Utwórz metodę `LogIn` w kontrolerze `Account`, metoda powinna:
+1. Utwórz metodę `LogIn` w kontrolerze `MVCAccount`, metoda powinna:
     1. Przyjmować tylko żądania `post`.
     1. Zwracać widok z formularzem utworzonym na postawie modelu `LogInViewModel`.
     1. Formularz powinien być typu `post` i powinien być wysłany na akcję `LogIn` typu `post`.
     1. W widoku wyświetl błędy walidacji.
-1. Utwórz metodę `LogIn` w kontrolerze `Account` z parametrem typu `LogInViewModel`. Metoda powinna:
+1. Utwórz metodę `LogIn` w kontrolerze `MVCAccount` z parametrem typu `LogInViewModel`. Metoda powinna:
     1. Przyjmować tylko żądania `post`.
     1. Sprawdzić walidację modelu.
     1. Logować użytkownika za pomocą usługi `SignInManager`.
@@ -75,9 +75,10 @@ Dla chętnych:
 #### Zadanie 1.5
 
 1. W widoku `Index` kontrolera `Home` zrób następujące czynności:
-    1. Zmień widok w taki sposób, aby link `Zaloguj` był wyświetlany tylko wtedy gdy użytkownik nie jest zalogowany.
-    1. Jeśli użytkownik jest zalogowany wyświetl link z tekstem `Wyloguj [LoginUżytkownika]`, który będzie kierował na akcję `LogOut` w kontrolerze `Account`.
-1. W kontrolerze `Account` utwórz akcję `LogOut`, która będzie wywoływana na żądania typu `get`.
+    1. Zmień widok w taki sposób, aby link `Add` był wyświetlany tylko wtedy gdy użytkownik jest zalogowany.
+	
+Dla chętnych:	
+1. W kontrolerze `MVCAccount` utwórz akcję `LogOut`, która będzie wywoływana na żądania typu `get`.
 1. Metoda powinna wylogować użytkownika i przekierować na akcję `Index` w kontrolerze `Home`.
 
 ## Dostęp do Akcji i Role
@@ -87,8 +88,14 @@ Dla chętnych:
 1. Utwórz kontroler o nazwie `Role`. Kontroler będzie dodawał role do użytkownika.
 1. Na kontrolerze `Role` ustaw atrybut `Authorize`, aby nie był dostępny dla niezalogowanych użytkowników.
 1. W kontrolerze utwórz akcję `Index` wraz z widokiem, który będzie zawierał linki do pozostałych akcji kontrolera.
-1. Odbierz w kontrolerze zarejestrowaną usługę `RoleManager`.
-1. W widoku `Index` kontrolera `Home` utwórz link kierujący na akcję `Index` kontrolera `Role`.
+1. Odbierz w kontrolerze zarejestrowaną usługę `RoleManager`. W tym celu należy zmodyfikować konfigurację AddDefaultIdentity.
+`
+builder.Services.AddDefaultIdentity<IdentityUser>(options => 
+    options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<FilmContext>();
+` 
+1. W layout utwórz link kierujący na akcję `Index` kontrolera `Role`. Link ma być dostępny tylko dla zalogowanych użytkowników.
 
 #### Zadanie 1.7
 

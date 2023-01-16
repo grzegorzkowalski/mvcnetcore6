@@ -8,5 +8,5 @@
 4. Dodaj odpowienie klasy dla tagu `table`.
 5. Stwórz rozwijane menu. 
 6. Wykorzystaj ikony wektorowe, żeby dodać stylu swojej aplikacji.
-7. Poekperymentuj i wykorzystaj, co najmniej 3 inne elementy biblioteki.
+7. Poeksperymentuj i wykorzystaj, co najmniej 3 inne elementy biblioteki.
  
