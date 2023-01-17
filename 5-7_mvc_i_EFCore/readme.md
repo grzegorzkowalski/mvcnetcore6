@@ -7,8 +7,8 @@
 1. Załóż nowy projekt w serwisie GitHub.
 2. Przy tworzeniu nowego projektu dodaj plik `.gitignore` dls Visual Studio.
 3. Stwórz nowy projekt .NET Core MVC `FilmDB`.
-4. Stwórz nową bazę danych `FilmDB`. Jeśli to konieczne zainstaluj wcześniej SQL Express 2019. 
-5. Zainstaluj pakiety umożliwiające korzystanie z `Entity Framework Core`.
+4. Stwórz nową bazę danych `FilmDB`. Jeśli to konieczne zainstaluj wcześniej SQL Express. 
+5. Zainstaluj pakiety umożliwiające korzystanie z `Entity Framework Core` (wszystkie pakiety w wersji 6.0.13).
 
 
 #### Zadanie 2
@@ -19,7 +19,7 @@
     `Title` typu `string` - tytuł filmu - właściwość musi być wymagana.
     `Year` typu `int` - tekst filmu.
 4. Dodaj nowy kontroler `FilmController`.
-5. Ustaw powyższy kontroler jako domyślny w pliku `Startup.cs`.
+5. Ustaw powyższy kontroler jako domyślny w pliku `Program.cs`.
 
 #### Zadanie 3
 
