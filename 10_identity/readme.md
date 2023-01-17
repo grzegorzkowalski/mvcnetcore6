@@ -92,8 +92,7 @@ Dla chętnych:
 `
 builder.Services.AddDefaultIdentity<IdentityUser>(options => 
     options.SignIn.RequireConfirmedAccount = false)
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<FilmContext>();
+    .AddRoles<IdentityRole>().AddEntityFrameworkStores<FilmContext>();
 ` 
 1. W layout utwórz link kierujący na akcję `Index` kontrolera `Role`. Link ma być dostępny tylko dla zalogowanych użytkowników.
 
