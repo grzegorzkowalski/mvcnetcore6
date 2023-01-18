@@ -5,60 +5,67 @@ namespace FilmDB.logic
 {
     public class FilmManager
     {
-        private readonly IConfiguration _configuration;
-
-        public FilmManager(IConfiguration configuration)
+        private readonly FilmContext context;
+        public FilmManager(FilmContext filmContext)
         {
-            _configuration = configuration;
+            context = filmContext;
         }
 
         public FilmManager AddFilm(FilmModel filmModel)
         {
-            using (var context = new FilmContext(_configuration))
-            {
-                context.Films.Add(filmModel);
-                context.SaveChanges();
-            }
+            context.Films.Add(filmModel);
+            context.SaveChanges();
             return this;
         }
 
         public FilmManager RemoveFilm(int id)
         {
-            using (var context = new FilmContext(_configuration))
+            var elementToDelete = context.Films.SingleOrDefault(x => x.ID == id);
+            if(elementToDelete != null)
             {
-                var elementToDelete = context.Films.SingleOrDefault(x => x.ID == id);
-                if(elementToDelete != null)
-                {
-                    context.Films.Remove(elementToDelete);
-                    context.SaveChanges();
-                }
+                context.Films.Remove(elementToDelete);
+                context.SaveChanges();
             }
             return this;
         }
 
         public FilmManager UpdateFilm(FilmModel filmModel)
         {
+            context.Films.Update(filmModel);
+            context.SaveChanges();
             return this;
         }
 
         public FilmManager ChangeTitle(int id, string newTitle)
         {
+            var film = new FilmModel();
+            film = context.Films.SingleOrDefault(x => x.ID == id);
+            try
+            {
+                film.Title = newTitle;
+                //context.Films.Update(film);
+                context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                film.Title = "Brak tytułu";
+                //context.Films.Update(film);
+                context.SaveChanges();
+            }
             return this;
         }
 
         public FilmModel GetFilm(int id)
         {
             var film = new FilmModel();
-            using (var context = new FilmContext(_configuration))
-            {
-                film = context.Films.SingleOrDefault(x => x.ID == id);
-            }
+            film = context.Films.SingleOrDefault(x => x.ID == id);
             return film;
         }
 
         public List<FilmModel> GetFilms()
-        {
-            return null;
+        {   var list = new List<FilmModel>();
+            list = context.Films.ToList();
+            return list;
         }
     }
 }

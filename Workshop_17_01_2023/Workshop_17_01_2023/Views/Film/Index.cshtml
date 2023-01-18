@@ -1,8 +1,57 @@
-﻿@{
-    ViewData["Title"] = "Film Page";
+﻿@model IEnumerable<FilmDB.Models.FilmModel>
+
+@{
+    ViewData["Title"] = "Index";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome on @ViewData["Title"]</h1>
-    <p>Witaj w świecie filmu</p>
-</div>
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Add" class="btn btn-info">Create New</a>
+</p>
+<table class="table table-success table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                <div class="btn-group">
+                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary">Edit</a>
+                    <a asp-action="Remove" asp-route-id="@item.ID" class="btn btn-warning">Delete</a>
+                </div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item disabled">
+      <a class="page-link">Previous</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item active" aria-current="page">
+      <a class="page-link" href="#">2</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</nav>

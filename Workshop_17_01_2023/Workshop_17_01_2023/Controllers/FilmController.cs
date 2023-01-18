@@ -8,33 +8,60 @@ namespace FilmDB.Controllers
     {
         private readonly FilmManager _filmManager;
 
-        public FilmController(IConfiguration configuration)
+        public FilmController(FilmManager filmManager)
         {
-            _filmManager = new FilmManager(configuration);
+            _filmManager = filmManager;
         }
         public IActionResult Index()
         {
-            var film = _filmManager.GetFilm(2);
-            
-            //var film = new FilmModel()
-            //{
-            //    //ID = 1,
-            //    Title = "Rambo",
-            //    Year = 1980
-            //};
-           
-            //try
-            //{
-            //    _filmManager.AddFilm(film);
-            //}
-            //catch (Exception)
-            //{
+            var films = _filmManager.GetFilms();
+            return View(films);
+        }
 
-            //    film.ID = 0;
-            //    _filmManager.AddFilm(film);
-            //}
-
+        [HttpGet]
+        public IActionResult Add()
+        {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Add(FilmModel film)
+        {
+            _filmManager.AddFilm(film);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Remove(int id)
+        {
+            var film = _filmManager.GetFilm(id);
+            return View(film);
+        }
+
+        [HttpPost]
+        public IActionResult RemoveConfirm(int id)
+        {
+            var film = _filmManager.GetFilm(id);
+            if (film != null)
+            {
+                _filmManager.RemoveFilm(id);
+              
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var film = _filmManager.GetFilm(id);
+            return View(film);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(FilmModel film)
+        {
+            _filmManager.UpdateFilm(film);
+            return RedirectToAction("Index");
         }
     }
 }

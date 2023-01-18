@@ -1,7 +1,26 @@
+using FilmDB.Data;
+using FilmDB.logic;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+LoggerFactory _myLoggerFactory =
+    new LoggerFactory(new[] {
+                new Microsoft.Extensions.Logging.Debug.DebugLoggerProvider()
+    });
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddDbContext<FilmContext>(options =>
+    options
+    .UseSqlServer(connectionString)
+    .UseLoggerFactory(_myLoggerFactory)
+    .EnableSensitiveDataLogging());
+
+builder.Services.AddScoped<FilmManager>();
 
 var app = builder.Build();
 

@@ -5,16 +5,12 @@ namespace FilmDB.Data
 {
     public class FilmContext : DbContext
     {
-        private readonly IConfiguration _configuration;
-
-        public FilmContext (IConfiguration configuration)
+        public FilmContext(DbContextOptions<FilmContext> options) : base(options)
         {
-            _configuration = configuration;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));   
         }
 
         public DbSet<FilmModel> Films { get; set; }
