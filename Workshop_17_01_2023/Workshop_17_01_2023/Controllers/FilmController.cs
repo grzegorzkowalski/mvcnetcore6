@@ -14,23 +14,25 @@ namespace FilmDB.Controllers
         }
         public IActionResult Index()
         {
-            var film = new FilmModel()
-            {
-                //ID = 1,
-                Title = "Rambo",
-                Year = 1980
-            };
+            var film = _filmManager.GetFilm(2);
+            
+            //var film = new FilmModel()
+            //{
+            //    //ID = 1,
+            //    Title = "Rambo",
+            //    Year = 1980
+            //};
            
-            try
-            {
-                _filmManager.AddFilm(film);
-            }
-            catch (Exception)
-            {
+            //try
+            //{
+            //    _filmManager.AddFilm(film);
+            //}
+            //catch (Exception)
+            //{
 
-                film.ID = 0;
-                _filmManager.AddFilm(film);
-            }
+            //    film.ID = 0;
+            //    _filmManager.AddFilm(film);
+            //}
 
             return View();
         }

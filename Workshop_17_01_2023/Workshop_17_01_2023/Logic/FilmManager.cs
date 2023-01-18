@@ -24,6 +24,15 @@ namespace FilmDB.logic
 
         public FilmManager RemoveFilm(int id)
         {
+            using (var context = new FilmContext(_configuration))
+            {
+                var elementToDelete = context.Films.SingleOrDefault(x => x.ID == id);
+                if(elementToDelete != null)
+                {
+                    context.Films.Remove(elementToDelete);
+                    context.SaveChanges();
+                }
+            }
             return this;
         }
 
@@ -37,9 +46,14 @@ namespace FilmDB.logic
             return this;
         }
 
-        public FilmManager GetFilm(int id)
+        public FilmModel GetFilm(int id)
         {
-            return null;
+            var film = new FilmModel();
+            using (var context = new FilmContext(_configuration))
+            {
+                film = context.Films.SingleOrDefault(x => x.ID == id);
+            }
+            return film;
         }
 
         public List<FilmModel> GetFilms()
