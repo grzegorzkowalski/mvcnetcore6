@@ -1,0 +1,12 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@model IEnumerable<IdentityRole>
+
+<form asp-action="Remove" method="Post">
+    <select name="name" id="name">
+        @foreach (var item in Model)
+        {
+            <option value=@item.Name>@item.Name</option>
+        }
+    </select>
+    <button type="submit">Usuń</button>
+ </form>

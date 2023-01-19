@@ -32,6 +32,39 @@ namespace FilmDB.Controllers
         public async Task<IActionResult> Add(IdentityRole identityRole)
         {
             IdentityResult result = await _roleManager.CreateAsync(identityRole);
+            if (result.Succeeded) {
+                return RedirectToAction("Index");
+            } 
+            else
+            {
+                return View("Error");
+            }  
+        }
+
+        [HttpGet]
+        public IActionResult Remove()
+        {
+            var roles = _roleManager.Roles;
+            return View(roles);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Remove([FromForm] string name)
+        {
+            var roleToDelete = await _roleManager.FindByNameAsync(name);
+
+            if (roleToDelete != null)
+            {
+                var result = await _roleManager.DeleteAsync(roleToDelete);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View("Error");
+                }
+            }
             return RedirectToAction("Index");
         }
     }
