@@ -1,6 +1,7 @@
-using FilmDB.Data;
 using FilmDB.logic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using FilmDB.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,10 @@ builder.Services.AddDbContext<FilmContext>(options =>
     .UseLoggerFactory(_myLoggerFactory)
     .EnableSensitiveDataLogging());
 
+builder.Services.AddDefaultIdentity<IdentityUser>(options => 
+    options.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<FilmContext>();
+
 builder.Services.AddScoped<FilmManager>();
 
 var app = builder.Build();
@@ -36,11 +41,13 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();
 
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Film}/{action=Index}/{id?}");
+app.MapRazorPages();
 
 app.Run();
