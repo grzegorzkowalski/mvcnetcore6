@@ -1,0 +1,35 @@
+https://learn.microsoft.com/en-us/aspnet/core/security/authentication/scaffold-identity?view=aspnetcore-6.0&tabs=netcore-cli
+
+<ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.13">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.13">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.11" />
+</ItemGroup>
+
+add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 6.0.11
+
+tool install -g dotnet-aspnet-codegenerator --version 6.0
+
+dotnet aspnet-codegenerator identity -dc Data.FilmContext -fi "Account.Manage._ManageNav;Account.Register;Account.Login;Account.Logout"
+
+W pliku Program.cs dodajemy po app.MapControllerRoute - app.MapRazorPages();
+Wygenerowany serwis powinien wyglądać tak:
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => 
+    options.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<FilmContext>();
+opcje RequireConfirmedAccount zmieniamy ręcznie na false
+
+Na końcu dodajemy migrację i aktualizujemy bazę danych
+
+W pliku _Layout.chhtml dodajemy w nagłówku <partial name="_LoginPartial" />

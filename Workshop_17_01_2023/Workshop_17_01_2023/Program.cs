@@ -23,6 +23,7 @@ builder.Services.AddDbContext<FilmContext>(options =>
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => 
     options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<FilmContext>();
 
 builder.Services.AddScoped<FilmManager>();
