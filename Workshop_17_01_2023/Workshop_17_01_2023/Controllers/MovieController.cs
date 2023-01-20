@@ -1,4 +1,5 @@
 ﻿using FilmDB.logic;
+using FilmDB.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FilmDB.Controllers
@@ -17,6 +18,21 @@ namespace FilmDB.Controllers
         {
             var film = _filmManager.GetFilm(id);
             return Json(film);
+        }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            List<FilmModel> films = _filmManager.GetFilms();
+            return Json(films);
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] FilmModel filmModel)
+        {
+            _filmManager.AddFilm(filmModel);
+            var url = $"{HttpContext.Request.Host.Value}/api/movie/{filmModel.ID}";
+            return Created(url, "Success");
         }
     }
 }
