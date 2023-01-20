@@ -34,5 +34,19 @@ namespace FilmDB.Controllers
             var url = $"{HttpContext.Request.Host.Value}/api/movie/{filmModel.ID}";
             return Created(url, "Success");
         }
+
+        [HttpPut]
+        public IActionResult Update([FromBody] FilmModel film)
+        {
+            _filmManager.UpdateFilm(film);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _filmManager.RemoveFilm(id);
+            return NoContent();
+        }
     }
 }
