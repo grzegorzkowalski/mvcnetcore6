@@ -1,5 +1,6 @@
 ﻿using FilmDB.Data;
 using FilmDB.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FilmDB.logic
 {
@@ -64,7 +65,7 @@ namespace FilmDB.logic
 
         public List<FilmModel> GetFilms()
         {   var list = new List<FilmModel>();
-            list = context.Films.ToList();
+            list = context.Films.Include(s => s.Genre).ToList();
             return list;
         }
     }

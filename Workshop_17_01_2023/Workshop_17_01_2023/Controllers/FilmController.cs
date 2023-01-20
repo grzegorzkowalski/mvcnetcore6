@@ -27,6 +27,7 @@ namespace FilmDB.Controllers
         [HttpPost]
         public IActionResult Add(FilmModel film)
         {
+            film.GenreId = 1;
             _filmManager.AddFilm(film);
             return RedirectToAction("Index");
         }

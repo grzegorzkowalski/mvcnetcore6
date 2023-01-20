@@ -1,0 +1,50 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityRole>
+@inject RoleManager<IdentityRole> roleManager
+
+@{
+    ViewData["Title"] = "Role Index";
+}
+
+<ul>
+    <li><a asp-action="add">Add role</a></li>
+    <li><a asp-action="addToRole">Add role for user</a></li>
+</ul>
+@if (User.Identity.IsAuthenticated)
+{
+    <ul>
+        <li>@User.Identity.Name</li>
+        @foreach (var item in @roleManager.Roles)
+        {
+            <li>@item.Name</li>
+        }   
+    </ul>    
+}
+
+<h2>List of roles</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Remove" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+

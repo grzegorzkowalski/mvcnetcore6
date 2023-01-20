@@ -1,0 +1,46 @@
+﻿@model IEnumerable<FilmDB.Models.FilmModel>
+
+@{
+    ViewData["Title"] = "changeCategory";
+}
+
+<h1>GetFilmsByCategory</h1>
+
+<p><a asp-action="add">Create New</a></p>
+<h1>Kategoria: @ViewBag.Name</h1>
+
+<form asp-action="changeCategory" method="post">
+    <select name="name" id="name" class ="form-control">
+        @foreach(var item in ViewBag.GenreList)
+        {
+            <option value="@item.Name">@item.Name</option>
+        }
+    </select>
+    <button type="submit">Wybierz</button>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+

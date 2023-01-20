@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityRole>
+
+@{
+    ViewData["Title"] = "Remove";
+}
+
+<h1>Remove</h1>
+@if (Model.Count() > 0)
+{
+    <form asp-action="Remove" method="post">
+        <select>
+            @foreach (var item in Model)
+            {
+                <option value=@item.Id>@Html.DisplayFor(modelItem => item.Name)</option>
+            }
+        </select>
+        <button>Delete</button>
+    </form>
+}
+else 
+{
+    <p>Brak ról do wyświetlenia</p>
+}
+
+
+                

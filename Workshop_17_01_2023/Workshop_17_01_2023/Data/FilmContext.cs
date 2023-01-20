@@ -20,5 +20,6 @@ namespace FilmDB.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
         public DbSet<FilmModel> Films { get; set; }
+        public DbSet<GenreModel> Genres { get; set; }
     }
 }
