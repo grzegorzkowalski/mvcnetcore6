@@ -1,0 +1,25 @@
+﻿@using FilmDB.ViewModels
+@model UsersRolesViewModel
+
+@if(Model.Errors.Count > 0)
+{
+    foreach(var item in Model.Errors)
+    {
+        <p>@item.Description</p>
+    }
+}
+<form asp-action="addToRolePost" method="post">
+    <select name="userID">
+        @foreach(var item in Model.Users) 
+        {
+            <option value="@item.Id">@item.UserName</option>
+        }
+    </select>
+    <select name="roleName">
+        @foreach(var item in Model.Roles) 
+        {
+            <option value="@item.Name">@item.Name</option>
+        }
+    </select>
+    <button type="submit">Wybierz</button>
+</form>
