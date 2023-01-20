@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace FilmDB.Controllers
 {
-    [Authorize]
+    [Authorize(Roles=("Admin"))]
     public class RoleController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -19,8 +19,10 @@ namespace FilmDB.Controllers
             _roleManager = roleManager;
             _userManager = userManager;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            ViewBag.UserRoles = await _userManager.GetRolesAsync(user);
             var roles = _roleManager.Roles;
             return View(roles);
         }
