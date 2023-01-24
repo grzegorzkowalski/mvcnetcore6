@@ -1,4 +1,4 @@
-### API
+### Zaawansowane zagadnienia
 
 #### Zadanie 1
 
@@ -15,5 +15,3 @@
 1. Dodaj nowy kontroler API z danymi o aktorach i kontroler z danymi o gatunkach. Oba mają pozwalać na pobranie pojedyńczego wpisu, kolekcji lub dodanie nowego obiektu.
 1. Dostosuj wszystkie elementy aplikacji do nowych wymagań.
 1. Pamiętaj o stylach CSS i wykorzystaniu biblioteki Bootstrap.
-
-     
