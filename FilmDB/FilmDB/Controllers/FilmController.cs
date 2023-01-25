@@ -54,5 +54,30 @@ namespace FilmDB.Controllers
             filmManager.RemoveFilm(id);
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult Edit (int id)
+        {
+            var filmManager = new FilmManager();
+            FilmModel film = filmManager.GetFilm(id);
+            return View(film);
+            
+        }
+
+        [HttpPost]
+        public IActionResult Edit (FilmModel film)
+        {
+            var filmManager = new FilmManager();
+            filmManager.UpdateFilm(film);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Details (int id)
+        {
+            var filmManager = new FilmManager();
+            FilmModel film = filmManager.GetFilm(id);
+            return View(film);
+        }
     }
 }
