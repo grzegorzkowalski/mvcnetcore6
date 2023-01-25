@@ -21,7 +21,7 @@ namespace FilmDB.Controllers
 
             var films = filmManager.GetFilms();
 
-            return View();
+            return View(films);
         }
 
         [HttpGet]
@@ -36,6 +36,22 @@ namespace FilmDB.Controllers
             var filmManager = new FilmManager();
             filmManager.AddFilm(film);
 
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Remove (int id)
+        {
+            var filmManager = new FilmManager();
+            var filmToDelete = filmManager.GetFilm(id);
+            return View(filmToDelete);
+        }
+
+        [HttpPost]
+        public IActionResult RemoveConfirm (int id)
+        {
+            var filmManager = new FilmManager();
+            filmManager.RemoveFilm(id);
             return RedirectToAction("Index");
         }
     }
