@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmDB", "FilmDB\FilmDB.csproj", "{1C0B3058-BD59-4B32-A711-3AF4DE75473E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmDB", "FilmDB\FilmDB.csproj", "{1C0B3058-BD59-4B32-A711-3AF4DE75473E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{021BF4EF-4D9B-42EE-9DFF-7B2176B979DE}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

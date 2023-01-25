@@ -1,4 +1,5 @@
 ﻿using FilmDB.Models;
+using FilmDB.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FilmDB.Controllers
@@ -7,13 +8,10 @@ namespace FilmDB.Controllers
     {
         public IActionResult Index()
         {
-            var film = new FilmModel()
-            {
-                Title = "Rambo",
-                Year = 1985
-            };
             var filmManager = new FilmManager();
-            filmManager.AddFilm(film);
+            // filmManager.AddFilm(film);
+
+            filmManager.RemoveFilm(3);
 
             return View();
         }
