@@ -23,5 +23,20 @@ namespace FilmDB.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Add(FilmModel film)
+        {
+            var filmManager = new FilmManager();
+            filmManager.AddFilm(film);
+
+            return RedirectToAction("Index");
+        }
     }
 }
