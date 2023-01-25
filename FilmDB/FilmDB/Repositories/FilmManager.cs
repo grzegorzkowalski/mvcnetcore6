@@ -42,17 +42,44 @@ namespace FilmDB.Repositories
 
         public FilmManager UpdateFilm(FilmModel filmModel)
         {
-            return this;
+            using(var _context = new FilmContext())
+            {
+                _context.Films.Update(filmModel);
+                _context.SaveChanges();
+            }
+                return this;
         }
 
         public FilmManager ChangeTitle(int id, string newTitle)
         {
+            using (var _context = new FilmContext())
+            {
+                try
+                {
+                    var film = _context.Films.Single(x => x.ID == id);
+                    if (!String.IsNullOrWhiteSpace(newTitle))
+                    {
+                        film.Title = newTitle;
+                        _context.SaveChanges();
+                    }
+                }
+                catch (Exception)
+                {
+
+                    return null;
+                }
+
+            }
             return this;
         }
 
-        public FilmManager GetFilm(int id)
+        public FilmModel GetFilm(int id)
         {
-            return null;
+            using (var _context = new FilmContext())
+            {
+                var film = _context.Films.SingleOrDefault(x => x.ID == id);
+                return film;
+            }
         }
 
         public List<FilmModel> GetFilms()

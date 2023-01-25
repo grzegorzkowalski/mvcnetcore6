@@ -11,7 +11,13 @@ namespace FilmDB.Controllers
             var filmManager = new FilmManager();
             // filmManager.AddFilm(film);
 
-            filmManager.RemoveFilm(3);
+            //filmManager.RemoveFilm(3);
+
+            var film = filmManager.GetFilm(2);
+            var film2 = filmManager.GetFilm(7);
+            filmManager.ChangeTitle(2, "   ");
+            film.Year = 1999;
+            filmManager.UpdateFilm(film);
 
             return View();
         }
