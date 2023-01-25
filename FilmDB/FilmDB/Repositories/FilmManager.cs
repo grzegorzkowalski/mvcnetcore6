@@ -84,6 +84,10 @@ namespace FilmDB.Repositories
 
         public List<FilmModel> GetFilms()
         {
+            using (var _context = new FilmContext())
+            {
+                return _context.Films.ToList();
+            }
             return null;
         }
     }

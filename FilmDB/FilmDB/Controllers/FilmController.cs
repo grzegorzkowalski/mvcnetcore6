@@ -13,11 +13,13 @@ namespace FilmDB.Controllers
 
             //filmManager.RemoveFilm(3);
 
-            var film = filmManager.GetFilm(2);
-            var film2 = filmManager.GetFilm(7);
-            filmManager.ChangeTitle(2, "   ");
-            film.Year = 1999;
-            filmManager.UpdateFilm(film);
+            //var film = filmManager.GetFilm(2);
+            //var film2 = filmManager.GetFilm(7);
+            //filmManager.ChangeTitle(2, "   ");
+            //film.Year = 1999;
+            //filmManager.UpdateFilm(film);
+
+            var films = filmManager.GetFilms();
 
             return View();
         }
