@@ -1,6 +1,7 @@
 ﻿using FilmDB.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using FilmDB.ViewModels;
 
 namespace FilmDB.Data
 {
@@ -15,5 +16,7 @@ namespace FilmDB.Data
         }
 
         public DbSet<FilmModel> Films { get ; set; }
+
+        public DbSet<FilmDB.ViewModels.AddToRole> AddToRole { get; set; }
     }
 }
