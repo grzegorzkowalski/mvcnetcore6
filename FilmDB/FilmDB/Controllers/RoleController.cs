@@ -40,5 +40,29 @@ namespace FilmDB.Controllers
                 return View(addToRole);
             }
         }
+
+        [HttpGet]
+        public IActionResult Remove()
+        {
+            var roles = _roleManager.Roles;
+            return View(roles);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Remove([FromForm] string id)
+        {
+            var roleToDelete = await _roleManager.FindByIdAsync(id);
+
+            if (roleToDelete != null)
+            {
+                var result = await _roleManager.DeleteAsync(roleToDelete);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+
+            return View();
+        }
     }
 }
