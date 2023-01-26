@@ -4,7 +4,7 @@ namespace FilmDB.ViewModels
 {
     public class AddToRole
     {
-        public int ID { get; set; }
+        public string Id { get; set; }
         [Required]
         public string Name { get; set; }
     }
