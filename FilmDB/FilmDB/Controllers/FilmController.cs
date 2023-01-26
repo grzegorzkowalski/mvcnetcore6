@@ -6,20 +6,14 @@ namespace FilmDB.Controllers
 {
     public class FilmController : Controller
     {
+        private readonly FilmManager _filmManager;
+        public FilmController(FilmManager filmManager)
+        { 
+            _filmManager = filmManager;
+        }
         public IActionResult Index()
         {
-            var filmManager = new FilmManager();
-            // filmManager.AddFilm(film);
-
-            //filmManager.RemoveFilm(3);
-
-            //var film = filmManager.GetFilm(2);
-            //var film2 = filmManager.GetFilm(7);
-            //filmManager.ChangeTitle(2, "   ");
-            //film.Year = 1999;
-            //filmManager.UpdateFilm(film);
-
-            var films = filmManager.GetFilms();
+            var films = _filmManager.GetFilms();
 
             return View(films);
         }
@@ -33,8 +27,7 @@ namespace FilmDB.Controllers
         [HttpPost]
         public IActionResult Add(FilmModel film)
         {
-            var filmManager = new FilmManager();
-            filmManager.AddFilm(film);
+            _filmManager.AddFilm(film);
 
             return RedirectToAction("Index");
         }
@@ -42,41 +35,35 @@ namespace FilmDB.Controllers
         [HttpGet]
         public IActionResult Remove (int id)
         {
-            var filmManager = new FilmManager();
-            var filmToDelete = filmManager.GetFilm(id);
+            var filmToDelete = _filmManager.GetFilm(id);
             return View(filmToDelete);
         }
 
         [HttpPost]
         public IActionResult RemoveConfirm (int id)
         {
-            var filmManager = new FilmManager();
-            filmManager.RemoveFilm(id);
+            _filmManager.RemoveFilm(id);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         public IActionResult Edit (int id)
         {
-            var filmManager = new FilmManager();
-            FilmModel film = filmManager.GetFilm(id);
-            return View(film);
-            
+            FilmModel film = _filmManager.GetFilm(id);
+            return View(film);      
         }
 
         [HttpPost]
         public IActionResult Edit (FilmModel film)
         {
-            var filmManager = new FilmManager();
-            filmManager.UpdateFilm(film);
+            _filmManager.UpdateFilm(film);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         public IActionResult Details (int id)
         {
-            var filmManager = new FilmManager();
-            FilmModel film = filmManager.GetFilm(id);
+            FilmModel film = _filmManager.GetFilm(id);
             return View(film);
         }
     }

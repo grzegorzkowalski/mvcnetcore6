@@ -31,9 +31,27 @@
                 @Html.DisplayFor(modelItem => item.Year)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Remove" asp-route-id="@item.ID">Usuń</a>
+                <a 
+                    asp-action="Edit" 
+                    asp-route-id="@item.ID"
+                    class="btn btn-primary btn-sm"
+                >
+                    Edit
+                </a> |
+                <a 
+                    asp-action="Details" 
+                    asp-route-id="@item.ID"
+                    class="btn btn-info btn-sm"
+                >
+                    Details
+                </a> |
+                <a 
+                    asp-action="Remove" 
+                    asp-route-id="@item.ID"
+                    class="btn btn-warning btn-sm"
+                >
+                    Usuń
+                </a>
             </td>
         </tr>
 }

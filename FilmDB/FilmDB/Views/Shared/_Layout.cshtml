@@ -28,6 +28,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Film" asp-action="Add">Dodaj nowy film</a>
                         </li>
+                        <partial name="_LoginPartial" />
+                        @if(User.Identity.IsAuthenticated) {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">Relo HomePage</a>
+                            </li>
+                        }
+
                     </ul>
                 </div>
             </div>
