@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FilmDB.Controllers
 {
-    [Authorize]
+    [Authorize(Roles="Admin")]
     public class RoleController : Controller
     {
         private RoleManager<IdentityRole> _roleManager;
@@ -18,9 +18,12 @@ namespace FilmDB.Controllers
             _userManager = userManager;
 
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var roles = _roleManager.Roles;
+            var userName = User.Identity.Name;
+            var user = await _userManager.FindByNameAsync(userName);
+            ViewBag.UserRoles = await _userManager.GetRolesAsync(user);
             return View(roles);
         }
 
@@ -99,6 +102,26 @@ namespace FilmDB.Controllers
             rolesUsers.Roles = roles;
             rolesUsers.Users = users;
             return View(rolesUsers);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddToRole(
+            [FromForm(Name = "userID")] string userID, 
+            [FromForm(Name = "roleID")] string roleID)
+        {
+            var role = await _roleManager.FindByIdAsync(roleID);
+            var user = await _userManager.FindByIdAsync(userID);
+            
+            if (role != null & user != null)
+            {
+                var result = await _userManager.AddToRoleAsync(user, role.Name);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+
+            return View();        
         }
     }
 }

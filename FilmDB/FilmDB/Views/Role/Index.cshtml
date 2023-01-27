@@ -9,6 +9,15 @@
 <ul>
     <li><a asp-action="Add">Dodaj rolę</a></></li>
     <li><a asp-action="Remove">Usuń rolę</a></></li>
+    <li><a asp-action="AddToRole">Dodaj użytkownika do roli</a></></li>
+</ul>
+
+<ul>
+    <li>@User.Identity.Name</li>
+    @foreach (var item in ViewBag.UserRoles)
+    {
+     <li>@item</li>   
+    }
 </ul>
 <table class="table">
     <thead>

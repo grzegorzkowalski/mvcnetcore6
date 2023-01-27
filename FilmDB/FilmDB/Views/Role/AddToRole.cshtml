@@ -1,0 +1,31 @@
+﻿@using FilmDB.ViewModels
+@model RolesUsers
+
+@{
+    ViewData["Title"] = "Dodaj do roli";
+}
+
+<h1>Wybierz rolę dla użytkownika</h1>
+
+@if(Model.Users.Count() > 0)
+{
+    <form asp-action="AddToRole">
+        <select name="userID">
+            @foreach(var item in Model.Users)
+            {
+                <option value="@item.Id">@item.UserName</option>
+            }
+        </select>
+        <select name="roleID">
+            @foreach(var item in Model.Roles)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+        <button>Dodaj rolę</button>
+    </form>
+}
+else
+{
+    <h2>Brak użytkowników</h2>
+}
