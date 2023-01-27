@@ -17,7 +17,7 @@ namespace FilmDB.Controllers
         public IActionResult Get(int id)
         {
             var film = _filmManager.GetFilm(id);
-            return Json(film);
+            return Ok(film);
         }
     }
 }
