@@ -23,6 +23,12 @@
                 <input asp-for="Year" class="form-control" />
                 <span asp-validation-for="Year" class="text-danger"></span>
             </div>
+            <select asp-for="GenreId">
+                @foreach (var item in ViewBag.Genre)
+                {
+                    <option value=@item.Id>@item.Name</option>
+                }
+            </select>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

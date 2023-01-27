@@ -9,6 +9,17 @@
 <p>
     <a asp-action="Add">Dodaj nowy film</a>
 </p>
+<form asp-action="Index">
+    <select name="GenreName">
+        @foreach (var item in ViewBag.Genre)
+        {
+            <option value=@item.Name>@item.Name</option>
+        }
+        <option value="wszystkie">Wszystkie</option>
+    </select>
+    <button>Filtruj</button>
+</form>
+
 <table class="table">
     <thead>
         <tr>
@@ -18,6 +29,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Year)
             </th>
+            <th>Gatunek</th>
             <th></th>
         </tr>
     </thead>
@@ -29,6 +41,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Year)
+            </td>
+             <td>
+                @(item.Genre != null ? item.Genre.Name : "")
             </td>
             <td>
                 <a 

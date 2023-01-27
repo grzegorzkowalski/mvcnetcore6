@@ -1,5 +1,6 @@
 ﻿using FilmDB.Data;
 using FilmDB.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FilmDB.Repositories
 {
@@ -74,7 +75,15 @@ namespace FilmDB.Repositories
 
         public List<FilmModel> GetFilms()
         {
-            return _context.Films.ToList();
+            return _context.Films.Include(x => x.Genre).ToList();
+        }
+
+        public List<FilmModel> GetFilmsByCategory(string name)
+        {
+            return _context.Films
+                .Include(x => x.Genre)
+                .Where(x => x.Genre.Name == name)
+                .ToList();
         }
     }
 }

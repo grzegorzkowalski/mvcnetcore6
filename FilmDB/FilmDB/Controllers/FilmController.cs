@@ -1,4 +1,5 @@
-﻿using FilmDB.Models;
+﻿using FilmDB.Data;
+using FilmDB.Models;
 using FilmDB.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,13 +8,36 @@ namespace FilmDB.Controllers
     public class FilmController : Controller
     {
         private readonly FilmManager _filmManager;
-        public FilmController(FilmManager filmManager)
+        private readonly FilmContext _filmContext;
+        public FilmController(FilmManager filmManager, FilmContext filmContext)
         { 
             _filmManager = filmManager;
+            _filmContext = filmContext;
         }
+
+        [HttpGet]
         public IActionResult Index()
         {
+            ViewBag.Genre = _filmContext.GenreModel.ToList();
             var films = _filmManager.GetFilms();
+
+            return View(films);
+        }
+
+        [HttpPost]
+        public IActionResult Index([FromForm(Name="GenreName")] string name)
+        {
+            ViewBag.Genre = _filmContext.GenreModel.ToList();
+            var films = new List<FilmModel>(); 
+            if (name == "wszystkie")
+            {
+                films = _filmManager.GetFilms();
+            }
+            else 
+            {
+                films = _filmManager.GetFilmsByCategory(name);
+            }
+            
 
             return View(films);
         }
@@ -21,6 +45,7 @@ namespace FilmDB.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+            ViewBag.Genre = _filmContext.GenreModel.ToList();
             return View();
         }
 
@@ -49,6 +74,7 @@ namespace FilmDB.Controllers
         [HttpGet]
         public IActionResult Edit (int id)
         {
+            ViewBag.Genre = _filmContext.GenreModel.ToList();
             FilmModel film = _filmManager.GetFilm(id);
             return View(film);      
         }
