@@ -18,5 +18,7 @@ namespace FilmDB.Data
         public DbSet<FilmModel> Films { get ; set; }
 
         public DbSet<FilmDB.ViewModels.AddToRole> AddToRole { get; set; }
+
+        public DbSet<FilmDB.Models.GenreModel> GenreModel { get; set; }
     }
 }
